@@ -1,0 +1,9 @@
+﻿<module>
+  <assemblies>
+    <!-- This adds the _ProjectName_.Web template assembly to the "default module" -->
+    <add assembly="SIRO" />
+  </assemblies>
+  <dojoModules>
+    <add name="nucleus" path="Scripts"  />
+  </dojoModules>
+</module>

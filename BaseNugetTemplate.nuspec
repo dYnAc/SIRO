@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>SIRO</id>
+    <version>1010.1.21</version>
+    <title>SIRO</title>
+    <authors>Jorge Cardenas</authors>
+    <owners>Jorge Cardenas,Verndale</owners>
+    <licenseUrl>http://verndale.com</licenseUrl>
+    <projectUrl>http://verndale.com</projectUrl>
+    <iconUrl>http://www.verndale.com/images/v-home.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Sitemap and robots dynamic generator with gadget and admin plugins for EPiserver</description>
+    <summary>Sitemap and robots dynamic generator for EPiServer</summary>
+    <releaseNotes>First version</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>EPiServer Verndale</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="EPiServer.Framework" version="10.10.1" />
+        <dependency id="EPiServer.CMS.Core" version="10.10.1" />
+        <dependency id="EPiServer.CMS.UI.Core" version="10.10.2" />
+        <dependency id="EPiServer.CMS" version="10.10.1" />
+        <dependency id="Microsoft.CodeDom.Providers.DotNetCompilerPlatform" version="1.0.5" />
+        <dependency id="SIRO.Core" version="1010.1.20" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System.Xml" targetFramework=".NETFramework4.5" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="**\*.*" exclude="bin\**\*.*;packages\**\*.*;obj\**\*.*" />
+  </files>
+</package>

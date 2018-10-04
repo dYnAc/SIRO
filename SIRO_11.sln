@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIRO", "SIRO.csproj", "{9F9CFEA3-932A-4F21-91B8-C6D9CBBF7D8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIRO.Core", "SIRO.Core\SIRO.Core.csproj", "{4A80C983-14B3-4E3D-BE72-7682EAB797FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F9CFEA3-932A-4F21-91B8-C6D9CBBF7D8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F9CFEA3-932A-4F21-91B8-C6D9CBBF7D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F9CFEA3-932A-4F21-91B8-C6D9CBBF7D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F9CFEA3-932A-4F21-91B8-C6D9CBBF7D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A80C983-14B3-4E3D-BE72-7682EAB797FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A80C983-14B3-4E3D-BE72-7682EAB797FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A80C983-14B3-4E3D-BE72-7682EAB797FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A80C983-14B3-4E3D-BE72-7682EAB797FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B47EC790-AEFC-47CA-BCEA-45C899BB4E99}
+	EndGlobalSection
+EndGlobal
