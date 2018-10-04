@@ -1,2 +1,2 @@
-# siro.verndale
+# SIRO
 Sitemap and Robots Generator for EPiServer
