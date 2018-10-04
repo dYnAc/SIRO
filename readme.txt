@@ -59,3 +59,7 @@ in the sitemap even when the page type is not restricted.
 * Multi site
 * Customizable string field to edit robots.txt content inside Start page
 * Http handler to intercept calls to robots.txt file per domain/site
+
+*******************************************************
+*******************  VERNDALE  ************************
+*******************************************************
