@@ -70,6 +70,21 @@ namespace SIRO.Core.Sitemap
         private int maxUrls;
 
         /// <summary>
+        /// Show localized urls.
+        /// </summary>
+        private bool showLocalizedUrls;
+
+        /// <summary>
+        /// Display localized urls separately.
+        /// </summary>
+        private bool displayLocalizedUrlsSeparated;
+
+        /// <summary>
+        /// Show Trailing slash.
+        /// </summary>
+        private bool showTrailingSlash;
+
+        /// <summary>
         /// The data from base.
         /// </summary>
         private SitemapConfigurationDataStore dataFromBase;
@@ -104,6 +119,9 @@ namespace SIRO.Core.Sitemap
 
             this.sites = SitemapManagerConfiguration.GetSites(this.dataFromBase);
             this.maxUrls = int.Parse(ConfigurationManager.AppSettings["SiteMap_MAX_URLS"]);
+            this.showLocalizedUrls = bool.Parse(ConfigurationManager.AppSettings["Show_Localized_URLS"]);
+            this.displayLocalizedUrlsSeparated = bool.Parse(ConfigurationManager.AppSettings["Display_Localized_URLS_Separated"]);
+            this.showTrailingSlash = bool.Parse(ConfigurationManager.AppSettings["Show_Trailing_Slash"]);
 
             var languageRep = ServiceLocator.Current.GetInstance<ILanguageBranchRepository>();
             this.defaultLanguage = languageRep.LoadFirstEnabledBranch();
@@ -168,7 +186,7 @@ namespace SIRO.Core.Sitemap
 
             if (File.Exists(robotsPath))
             {
-                StreamReader sr = new StreamReader(robotsPath);
+                var sr = new StreamReader(robotsPath);
                 sitemapContent.Append(sr.ReadToEnd());
                 sr.Close();
             }
@@ -201,11 +219,10 @@ namespace SIRO.Core.Sitemap
             foreach (DictionaryEntry site in this.sites)
             {
                 var siteName = site.Key.ToString();
-                var filename = site.Value.ToString();
                 var defRep = ServiceLocator.Current.GetInstance<ISiteDefinitionRepository>();
                 var siteDef = defRep.Get(siteName);
                 var serverUrl = SitemapManagerConfiguration.GetServerUrlBySite(siteDef);
-                var sitemapLine = string.Concat("Sitemap: ", serverUrl, SitemapSubFolder, "/", filename);
+                var sitemapLine = string.Concat("Sitemap: ", serverUrl, "sitemap.xml");
 
                 var rep = ServiceLocator.Current.GetInstance<IContentRepository>();
                 var startPage = rep.Get<PageData>(siteDef.StartPage);
@@ -345,10 +362,7 @@ namespace SIRO.Core.Sitemap
             var siteMapIndexNode = doc.CreateElement("sitemapindex");
             var xmlNsAttr = doc.CreateAttribute("xmlns");
             xmlNsAttr.Value = SitemapManagerConfiguration.XmlNsTpl;
-            var xmlNsLangAttr = doc.CreateAttribute("xmlns:xhtml");
-            xmlNsLangAttr.Value = SitemapManagerConfiguration.XmlNsLangTpl;
             siteMapIndexNode.Attributes.Append(xmlNsAttr);
-            siteMapIndexNode.Attributes.Append(xmlNsLangAttr);
             doc.AppendChild(siteMapIndexNode);
 
             foreach (var filename in fileNames)
@@ -391,10 +405,7 @@ namespace SIRO.Core.Sitemap
             var urlSetNode = doc.CreateElement("urlset");
             var xmlNsAttr = doc.CreateAttribute("xmlns");
             xmlNsAttr.Value = SitemapManagerConfiguration.XmlNsTpl;
-            var xmlNsLangAttr = doc.CreateAttribute("xmlns:xhtml");
-            xmlNsLangAttr.Value = SitemapManagerConfiguration.XmlNsLangTpl;
             urlSetNode.Attributes.Append(xmlNsAttr);
-            urlSetNode.Attributes.Append(xmlNsLangAttr);
 
             doc.AppendChild(urlSetNode);
 
@@ -410,7 +421,22 @@ namespace SIRO.Core.Sitemap
                     }
                 }
 
-                doc = this.BuildSitemapItem(doc, itm, site);
+                if (displayLocalizedUrlsSeparated)
+                {
+                    // Add different languages to the sitemap as specified in https://support.google.com/webmasters/answer/2620865?hl=en
+                    var existingLanguages = itm.ExistingLanguages;
+                    var rep = ServiceLocator.Current.GetInstance<IContentLoader>();
+
+                    foreach (var lang in existingLanguages)
+                    {
+                        var culturedPage = rep.Get<PageData>(itm.ContentLink, lang);
+                        doc = this.BuildSitemapItem(doc, culturedPage, lang, site);
+                    }
+                }
+                else
+                {
+                    doc = this.BuildSitemapItem(doc, itm, null, site);
+                }
             }
 
             return doc.OuterXml;
@@ -425,15 +451,18 @@ namespace SIRO.Core.Sitemap
         /// <param name="item">
         /// The item.
         /// </param>
+        /// <param name="culture">
+        /// The culture.
+        /// </param>
         /// <param name="site">
         /// The site.
         /// </param>
         /// <returns>
         /// The <see cref="XmlDocument"/>.
         /// </returns>
-        private XmlDocument BuildSitemapItem(XmlDocument doc, PageData item, SiteDefinition site)
+        private XmlDocument BuildSitemapItem(XmlDocument doc, PageData item, CultureInfo culture, SiteDefinition site)
         {
-            var url = HttpUtility.HtmlEncode(this.GetItemUrl(item, this.defaultLanguage.Culture, site));
+            var url = HttpUtility.HtmlEncode(this.GetItemUrl(item, culture ?? this.defaultLanguage.Culture, site));
 
             var lastMod = HttpUtility.HtmlEncode(item.Saved.ToString("yyyy-MM-ddTHH:mm:sszzz"));
 
@@ -444,22 +473,25 @@ namespace SIRO.Core.Sitemap
 
             var locNode = doc.CreateElement("loc");
             urlNode.AppendChild(locNode);
-            locNode.AppendChild(doc.CreateTextNode(url));
+            locNode.AppendChild(doc.CreateTextNode(!showTrailingSlash ? url : url + "/"));
 
-            // Add different languages to the sitemap as specified in https://support.google.com/webmasters/answer/2620865?hl=en
-            var existingLanguages = item.ExistingLanguages;
-            var rep = ServiceLocator.Current.GetInstance<IContentLoader>();
-
-            foreach (var lang in existingLanguages)
+            if (showLocalizedUrls)
             {
-                var culturedPage = rep.Get<PageData>(item.ContentLink, lang);
-                var culturedUrl = HttpUtility.HtmlEncode(this.GetItemUrl(culturedPage.ContentLink, lang, site));
+                // Add different languages to the sitemap as specified in https://support.google.com/webmasters/answer/2620865?hl=en
+                var existingLanguages = item.ExistingLanguages;
+                var rep = ServiceLocator.Current.GetInstance<IContentLoader>();
 
-                var languageNode = doc.CreateElement("xhtml", "link", SitemapManagerConfiguration.XmlNsLangTpl);
-                languageNode.SetAttribute("rel", "alternate");
-                languageNode.SetAttribute("hreflang", lang.Name);
-                languageNode.SetAttribute("href", culturedUrl);
-                urlNode.AppendChild(languageNode);
+                foreach (var lang in existingLanguages)
+                {
+                    var culturedPage = rep.Get<PageData>(item.ContentLink, lang);
+                    var culturedUrl = HttpUtility.HtmlEncode(this.GetItemUrl(culturedPage.ContentLink, lang, site));
+
+                    var languageNode = doc.CreateElement("link");
+                    languageNode.SetAttribute("rel", "alternate");
+                    languageNode.SetAttribute("hreflang", lang.Name);
+                    languageNode.SetAttribute("href", !showTrailingSlash ? culturedUrl : culturedUrl + "/");
+                    urlNode.AppendChild(languageNode);
+                }
             }
 
             var seoProperty = item.GetType().GetProperty("Priority");

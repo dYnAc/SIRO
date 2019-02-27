@@ -11,7 +11,7 @@ namespace SIRO.Gadgets
         Categories = "dashboard",
         WidgetType = "nucleus/components/SitemapGadget",
         Description = "Sitemap generator gadget",
-        PlugInAreas = EPiServer.Shell.ShellPlugInArea.DashboardRoot)]
+        PlugInAreas = EPiServer.Shell.ShellPlugInArea.DashboardDefaultTab)]
     public class SitemapGadget
     {
     }

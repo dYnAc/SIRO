@@ -3,7 +3,8 @@
 ---------------------------------------------------------------------
  
 !!!!!!!! IMPORTANT  !!!!!!!!
-Every inherit field must have their respectiva Display and/or 
+
+Every inherit field must have their respective Display and/or 
 UIHint (Optional) attributes in order to work correctly on EPiServer.
 For instance:
 
@@ -37,20 +38,22 @@ in the sitemap even when the page type is not restricted.
 
 * Multi site 
 * Multi language (https://support.google.com/webmasters/answer/2620865?hl=en)
-* Filter by page (Atribute ExcludeFromSiteMap)
+* Filter by page (Attribute ExcludeFromSiteMap)
 * Sort by priority and frequency (Attributes Priority nad ChangeFrequency)
 * Filter by page type
 * Filter by site
 * Notification to search engines in production environment
 * Automatic update of robots.txt file
 * Small tweaks configurations inside web.config and Sitemap.config files such as:
-  ** Limit the number of entries per file (Default 50000) - web.config, it gnerates
-     and index file and several sitemap files if the limit is reached
+  ** Limit the number of entries per file (Default 50000) - web.config, it generates and index file and several sitemap files if the limit is reached
   ** Output to robots.txt file (Default true:1) - web.config
+  ** Show a trailing slash at the end of every link (Default false) - web.config
+  ** Show localized urls using lang href attributes with only one loc tag (Default true) - web.config
+  ** Display localized urls separated, it will not use lang href attributes, instead it will show them as separate loc tags (Default false) - web.config
   ** Sitemap file required namespaces - Sitemap.config
   ** Production environment (Default false) - Sitemap.config
 * Admin plugin which allows to configure sites, page types and search engines
-* Adnin job to generate sitemaps using the admin sitemap plugin
+* Admin job to generate sitemaps using the admin sitemap plugin
 * Web editor gadget which generates sitemaps with restricted sites and page types
 * Http handler to intercept calls to sitemap.xml file per domain/site
 
@@ -59,7 +62,3 @@ in the sitemap even when the page type is not restricted.
 * Multi site
 * Customizable string field to edit robots.txt content inside Start page
 * Http handler to intercept calls to robots.txt file per domain/site
-
-*******************************************************
-*******************  VERNDALE  ************************
-*******************************************************

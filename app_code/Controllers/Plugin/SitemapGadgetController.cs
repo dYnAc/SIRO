@@ -9,7 +9,7 @@ namespace SIRO.Controllers.Plugin
     /// <summary>
     /// The sitemap gadget controller.
     /// </summary>
-    [Authorize(Roles = "WebEditors, WebAdmins, Administrators")]
+    [Authorize(Roles = "CmsAdmins, CmsEditors, Administrators")]
     public class SitemapGadgetController : Controller
     {
         /// <summary>

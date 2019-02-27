@@ -59,7 +59,6 @@ namespace SIRO.Handlers
             context.Response.Clear();
             context.Response.StatusCode = 200;
             context.Response.ContentType = "text/xml";
-            context.Response.ContentEncoding = System.Text.Encoding.UTF8;
 
             var sitemapXmlContent = string.Empty;
 

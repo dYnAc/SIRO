@@ -10,10 +10,9 @@ namespace SIRO.Core.Initialization
     /// The sitemap configuration initialization module.
     /// </summary>
     [InitializableModule]
-    [ModuleDependency(typeof(EPiServer.Web.InitializationModule))]
     public class SitemapConfigurationInitializationModule : IInitializableModule
     {
-        private bool initializeed = false;
+        private bool initialized = false;
 
         /// <summary>
         /// The initialize.
@@ -23,7 +22,7 @@ namespace SIRO.Core.Initialization
         /// </param>
         public void Initialize(InitializationEngine context)
         {
-            if (!initializeed)
+            if (!initialized)
             {
                 RouteTable.Routes.MapRoute(
                     name: "SitemapConfiguration",

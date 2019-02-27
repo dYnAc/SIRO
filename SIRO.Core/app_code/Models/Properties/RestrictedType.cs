@@ -10,7 +10,7 @@ namespace SIRO.Core.Models.Properties
         /// Gets or sets the content type.
         /// </summary>
         public string ContentType { get; set; }
-
+        
         /// <summary>
         /// Gets or sets a value indicating whether restricted.
         /// </summary>

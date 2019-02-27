@@ -64,7 +64,7 @@ namespace SIRO.Core.Models.ViewModels
             this.sitemapConfigData.RestrictedTypes = this.RestrictedTypes;
             this.sitemapConfigData.RestrictedSites = this.RestrictedSites;
             this.sitemapConfigData.SearchEngines = this.SearchEngines.Count == 0 ? null : this.SearchEngines;
-            
+
             this.sitemapConfigManager.Service.SaveData(this.sitemapConfigData);
         }
 
@@ -81,7 +81,7 @@ namespace SIRO.Core.Models.ViewModels
             var repository = ServiceLocator.Current.GetInstance<IContentTypeRepository>();
             var baseType = typeof(PageData);
             var pageTypes = repository.List().Where(
-                p => p.ModelType != null && 
+                p => p.ModelType != null &&
                 (p.ModelType.IsSubclassOf(baseType) || p.ModelType == baseType || baseType.IsInterface && baseType.IsAssignableFrom(p.ModelType)) &&
                 p.IsAvailable).ToList();
 

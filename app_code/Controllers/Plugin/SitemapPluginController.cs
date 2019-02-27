@@ -9,7 +9,7 @@ namespace SIRO.Controllers.Plugin
     /// <summary>
     /// The sitemap plugin controller.
     /// </summary>
-    [Authorize(Roles = "CmsAdmins")]
+    [Authorize(Roles = "CmsAdmins, CmsEditors, Administrators")]
     [EPiServer.PlugIn.GuiPlugIn(
         Area = EPiServer.PlugIn.PlugInArea.AdminConfigMenu,
         Url = "/SitemapPlugin/Index",

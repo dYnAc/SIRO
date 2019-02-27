@@ -140,13 +140,42 @@
         .claro .dijitDialogUnderlay {
             background: #000;
         }
+
+        .fixed_header {
+            width: auto;
+            table-layout: fixed;
+            border-collapse: collapse;
+        }
+
+            .fixed_header tbody {
+                display: block;
+                width: 100%;
+                overflow: auto;
+                height: 300px;
+            }
+
+            .fixed_header thead tr {
+                display: block;
+            }
+
+            .fixed_header thead {
+                background: gray;
+                color: #fff;
+            }
+
+            .fixed_header th, .fixed_header td {
+                padding: 5px;
+                text-align: left;
+                width: 200px;
+            }
     </style>
 
-    <button class="btn btn-primary" id="btnGenerateSitemaps">Generate sitemaps</button>
-    <br />
-    <br />
-
     <form id="sitemapForm" method="post">
+        <br />
+        <button class="btn btn-primary" id="btnGenerateSitemaps">Generate sitemaps</button>
+        <br />
+        <br />
+
         <!--Contenedor-->
         <div id="container">
             <!--Pestaña 1 activa por defecto-->
@@ -160,7 +189,7 @@
             <div id="content">
                 <!--Contenido de la Pestaña 1-->
                 <div id="content-1">
-                    <table class="table" id="tblPageTypes" style="border-style: None; border-collapse: collapse;" cellspacing="1">
+                    <table class="table fixed_header" id="tblPageTypes" style="border-style: None; border-collapse: collapse;" cellspacing="1">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>
@@ -176,8 +205,13 @@
                             @for (var i = 0; i < Model.RestrictedTypes.Count; i++)
                             {
                                 <tr>
-                                    <td class="fields">@Html.TextBoxFor(x => x.RestrictedTypes[i].ContentType, new { @readonly = "true" })</td>
-                                    <td class="fields">@Html.CheckBoxFor(x => x.RestrictedTypes[i].Restricted)</td>
+                                    <td class="fields">
+                                        @Html.HiddenFor(x => x.RestrictedTypes[i].ContentType)
+                                        @Model.RestrictedTypes[i].ContentType
+                                    </td>
+                                    <td class="fields">
+                                        @Html.CheckBoxFor(x => x.RestrictedTypes[i].Restricted)
+                                    </td>
                                 </tr>
                             }
                         </tbody>
@@ -185,7 +219,7 @@
                 </div>
                 <!--Contenido de la Pestaña 2-->
                 <div id="content-2">
-                    <table class="table" id="tblPageSites" style="border-style: None; border-collapse: collapse;" cellspacing="1">
+                    <table class="table fixed_header" id="tblPageSites" style="border-style: None; border-collapse: collapse;" cellspacing="1">
                         <thead class="thead-inverse">
                             <tr>
                                 <th>
@@ -204,9 +238,16 @@
                             @for (var i = 0; i < Model.RestrictedSites.Count; i++)
                             {
                                 <tr>
-                                    <td class="fields">@Html.TextBoxFor(x => x.RestrictedSites[i].SiteName, new { @readonly = "true" })</td>
-                                    <td class="fields">@Html.TextBoxFor(x => x.RestrictedSites[i].SiteMapFileName)</td>
-                                    <td class="fields">@Html.CheckBoxFor(x => x.RestrictedSites[i].Restricted)</td>
+                                    <td class="fields">
+                                        @Html.HiddenFor(x => x.RestrictedSites[i].SiteName)
+                                        @Model.RestrictedSites[i].SiteName
+                                    </td>
+                                    <td class="fields">
+                                        @Html.TextBoxFor(x => x.RestrictedSites[i].SiteMapFileName)
+                                    </td>
+                                    <td class="fields">
+                                        @Html.CheckBoxFor(x => x.RestrictedSites[i].Restricted)
+                                    </td>
                                 </tr>
                             }
                         </tbody>

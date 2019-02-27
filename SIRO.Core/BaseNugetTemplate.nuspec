@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>SIRO.Core</id>
-    <version>1010.1.21</version>
+    <version>1111.1.30</version>
     <title>SIRO.Core</title>
     <authors>Jorge Cardenas</authors>
     <owners>Jorge Cardenas,Verndale</owners>
@@ -16,17 +16,15 @@
     <copyright>Copyright 2017</copyright>
     <tags>EPiServer Verndale</tags>
     <dependencies>
-      <group targetFramework=".NETFramework4.5">
-        <dependency id="EPiServer.Framework" version="10.10.1" />
-        <dependency id="EPiServer.CMS.Core" version="10.10.1" />
-        <dependency id="EPiServer.CMS.UI.Core" version="10.10.2" />
+      <group targetFramework=".NETFramework4.7">
+        <dependency id="EPiServer.Framework" version="11.9.2" />
       </group>
     </dependencies>
     <frameworkAssemblies>
-      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.5" />
-      <frameworkAssembly assemblyName="System.Configuration" targetFramework=".NETFramework4.5" />
-      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.5" />
-      <frameworkAssembly assemblyName="System.Xml" targetFramework=".NETFramework4.5" />
+      <frameworkAssembly assemblyName="System" targetFramework=".NETFramework4.7" />
+      <frameworkAssembly assemblyName="System.Configuration" targetFramework=".NETFramework4.7" />
+      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.7" />
+      <frameworkAssembly assemblyName="System.Xml" targetFramework=".NETFramework4.7" />
     </frameworkAssemblies>
   </metadata>
   <files>

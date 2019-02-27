@@ -1,7 +1,7 @@
 ﻿@using System.Web.Mvc.Html
 @using EPiServer.Framework.Web.Resources
 @using EPiServer.Shell.Web.Mvc.Html
- 
+
 @model SIRO.Core.Models.ViewModels.SitemapConfigurationViewModel
 
 @{
@@ -18,7 +18,7 @@
     <!-- Shell --> @Html.Raw(ClientResources.RenderResources("ShellCore"))
     <!-- LightTheme --> @Html.Raw(ClientResources.RenderResources("ShellCoreLightTheme"))
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" />
-    <script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="~/Scripts/bootstrap.js" type="text/javascript"></script>
     <script src="~/Scripts/sitemapConfig.js" type="text/javascript"></script>
 </head>
@@ -64,8 +64,13 @@
                                 @for (var i = 0; i < Model.RestrictedTypes.Count; i++)
                                 {
                                     <tr>
-                                        <td>@Html.TextBoxFor(x => x.RestrictedTypes[i].ContentType, new { @readonly = "true" })</td>
-                                        <td>@Html.CheckBoxFor(x => x.RestrictedTypes[i].Restricted)</td>
+                                        <td>
+                                            @Html.HiddenFor(x => x.RestrictedTypes[i].ContentType)
+                                            @Model.RestrictedTypes[i].ContentType
+                                        </td>
+                                        <td>
+                                            @Html.CheckBoxFor(x => x.RestrictedTypes[i].Restricted)
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
@@ -96,9 +101,16 @@
                                 @for (var i = 0; i < Model.RestrictedSites.Count; i++)
                                 {
                                     <tr>
-                                        <td>@Html.TextBoxFor(x => x.RestrictedSites[i].SiteName, new { @readonly = "true" })</td>
-                                        <td>@Html.TextBoxFor(x => x.RestrictedSites[i].SiteMapFileName)</td>
-                                        <td>@Html.CheckBoxFor(x => x.RestrictedSites[i].Restricted)</td>
+                                        <td>
+                                            @Html.HiddenFor(x => x.RestrictedSites[i].SiteName)
+                                            @Model.RestrictedSites[i].SiteName
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(x => x.RestrictedSites[i].SiteMapFileName)
+                                        </td>
+                                        <td>
+                                            @Html.CheckBoxFor(x => x.RestrictedSites[i].Restricted)
+                                        </td>
                                     </tr>
                                 }
                             </tbody>
