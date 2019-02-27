@@ -1,0 +1,20 @@
+﻿<configuration>
+  <appSettings>
+    <add key="siteMapConfig" value="App_Config\Sitemap.config"/>
+    <add key="SiteMap_MAX_URLS" value="50000"/>
+    <add key="Show_Localized_URLS" value="true"/>
+    <add key="Display_Localized_URLS_Separated" value="false"/>
+    <add key="Show_Trailing_Slash" value="false"/>
+    <add key="SiteMap_OutPutRobots_txt" value="1"/>
+  </appSettings> 
+  <system.webServer>   
+    <handlers>
+      <add name="Robots" verb="*" path="/robots.txt"
+           type="SIRO.Handlers.RobotsHandler, SIRO, Version=1.0.0.0, Culture=neutral"
+           preCondition="managedHandler"/>
+      <add name="Sitemap" verb="*" path="/sitemap.xml"
+           type="SIRO.Handlers.SitemapHandler, SIRO, Version=1.0.0.0, Culture=neutral"
+           preCondition="managedHandler"/>
+    </handlers>
+  </system.webServer>    
+  </configuration>
